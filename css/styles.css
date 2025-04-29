@@ -1309,7 +1309,6 @@ footer {
     font-size: 1.8rem;
   }
 }
-/* Add to your CSS file */
 .about-image {
   position: relative;
   width: 100%;
@@ -1321,23 +1320,34 @@ footer {
 .about-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* This is key to prevent stretching */
   filter: grayscale(30%) contrast(120%);
   transition: all var(--transition-slow);
+}
+
+.about-content {
+  display: flex; /* This is causing the side-by-side layout on larger screens */
+  gap: 2rem;
+  align-items: center; /* Vertically align items in the flex container */
 }
 
 /* Mobile adjustments */
 @media screen and (max-width: 768px) {
   .about-content {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* Stack items, image on top */
     gap: 2rem;
   }
-  
+
   .about-image {
-    height: 300px;
-    min-height: 300px;
-    width: 100%;
+    height: auto; /* Adjust height automatically based on content */
+    min-height: auto; /* Remove fixed minimum height */
+    width: 100%; /* Take full width */
+  }
+
+  .about-image img {
+    height: auto; /* Adjust image height to maintain aspect ratio */
+    min-height: auto; /* Remove fixed minimum height */
   }
 }
 }
