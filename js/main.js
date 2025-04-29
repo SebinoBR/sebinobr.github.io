@@ -69,7 +69,7 @@ function initEnterButton() {
         const headerHeight = document.querySelector("header").offsetHeight || 0;
 
         // Add offset to scroll lower (adjust this value as needed)
-        const scrollOffset = window.innerHeight * 0.17; // 15% of viewport height
+        const scrollOffset = window.innerHeight * 0.15; // 15% of viewport height
         
         // Calculate the target position with offset
         const targetPosition =
