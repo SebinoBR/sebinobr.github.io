@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   setCurrentYear();
   initEnterButton();
-  initNavigation();
+  initNavigation(); // Ensure this is called
   preloadImages();
   initSmoothScrolling();
   initHeaderScroll();
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initKeyboardNav();
 
   setTimeout(() => {
-    initGlitchEffect();
+    initGlitchEffect(); // Ensure this is called
     initScrollAnimation();
     initMediaToggles();
     enhanceVHSEffect();
@@ -52,27 +52,30 @@ function initEnterButton() {
 function initNavigation() {
   const menuToggle = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector(".nav-links");
-  const header = document.querySelector("header");
+  const body = document.body; // Get the body element
 
-  if (menuToggle) {
+  if (menuToggle && navLinks && body) {
     menuToggle.addEventListener("click", () => {
-      menuToggle.classList.toggle("open");
       navLinks.classList.toggle("open");
-      document.body.classList.toggle("menu-open");
+      menuToggle.classList.toggle("open");
+      body.classList.toggle("menu-open"); // Toggle class on body
+    });
+
+    const navItems = navLinks.querySelectorAll("a"); // Select links within navLinks
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.classList.remove("open");
+        body.classList.remove("menu-open"); // Remove class on body
+      });
     });
   }
 
-  const navItems = document.querySelectorAll(".nav-links a");
-  navItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      menuToggle.classList.remove("open");
-      navLinks.classList.remove("open");
-      document.body.classList.remove("menu-open");
-    });
-  });
-
   window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 50);
+    const header = document.querySelector("header");
+    if (header) {
+      header.classList.toggle("scrolled", window.scrollY > 50);
+    }
   });
 
   const scrollLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
@@ -81,7 +84,8 @@ function initNavigation() {
       e.preventDefault();
       const targetId = link.getAttribute("href");
       const targetElement = document.querySelector(targetId);
-      if (targetElement) {
+      const header = document.querySelector("header");
+      if (targetElement && header) {
         const headerHeight = header.offsetHeight;
         const targetPosition = targetElement.offsetTop - headerHeight;
         window.scrollTo({ top: targetPosition, behavior: "smooth" });
@@ -94,24 +98,18 @@ function initGlitchEffect() {
   const glitchTitle = document.querySelector(".glitch-title");
   if (!glitchTitle) return;
 
-  function randomGlitch() {
-    const delay = Math.random() * 5000 + 3000;
+  function glitch() {
+    const randomTime = Math.random() * 0.1 + 0.05;
+    const randomOffset = Math.floor(Math.random() * 5) - 2;
+    glitchTitle.style.setProperty('--glitch-offset', `${randomOffset}px`);
+    glitchTitle.classList.add('glitch');
     setTimeout(() => {
-      const glitchIntensity = Math.random() > 0.7 ? "intense" : "";
-      glitchTitle.classList.add("glitching");
-      if (glitchIntensity) {
-        glitchTitle.classList.add(glitchIntensity);
-        setTimeout(() => {
-          glitchTitle.classList.remove(glitchIntensity);
-        }, 1000);
-      }
-      setTimeout(() => {
-        glitchTitle.classList.remove("glitching");
-        randomGlitch();
-      }, 2000);
-    }, delay);
+      glitchTitle.classList.remove('glitch');
+      setTimeout(glitch, Math.random() * 3000 + 2000);
+    }, randomTime * 1000);
   }
-  randomGlitch();
+
+  glitch();
 }
 
 function initScrollAnimation() {
@@ -215,8 +213,9 @@ function initSmoothScrolling() {
       e.preventDefault();
       const targetId = this.getAttribute("href");
       const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        const headerHeight = document.querySelector("header").offsetHeight;
+      const header = document.querySelector("header");
+      if (targetElement && header) {
+        const headerHeight = header.offsetHeight;
         const targetPosition =
           targetElement.getBoundingClientRect().top +
           window.scrollY -
@@ -239,9 +238,10 @@ function initHeaderScroll() {
 function initScrollIndicator() {
   const scrollIndicator = document.querySelector(".scroll-indicator");
   const aboutSection = document.getElementById("about");
-  if (!scrollIndicator || !aboutSection) return;
+  const header = document.querySelector("header");
+  if (!scrollIndicator || !aboutSection || !header) return;
   scrollIndicator.addEventListener("click", function () {
-    const headerHeight = document.querySelector("header").offsetHeight;
+    const headerHeight = header.offsetHeight;
     const targetPosition =
       aboutSection.getBoundingClientRect().top + window.scrollY - headerHeight;
     window.scrollTo({ top: targetPosition, behavior: "smooth" });
@@ -253,9 +253,10 @@ function initKeyboardNav() {
     if (window.scrollY < 100) {
       if (event.key === "ArrowDown" || event.key === "Enter") {
         const aboutSection = document.getElementById("about");
-        if (aboutSection) {
+        const header = document.querySelector("header");
+        if (aboutSection && header) {
           event.preventDefault();
-          const headerHeight = document.querySelector("header").offsetHeight;
+          const headerHeight = header.offsetHeight;
           const targetPosition =
             aboutSection.getBoundingClientRect().top +
             window.scrollY -
