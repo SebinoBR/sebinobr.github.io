@@ -1,127 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Solution Found - A portfolio">
-  <meta name="keywords" content="trap metal, Blender, music production, digital art">
-  <title>Digital Wasteland | Portfolio</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="bartech.ico">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Solution Found - A portfolio" />
+    <meta
+      name="keywords"
+      content="trap metal, Blender, music production, digital art"
+    />
+    <title>Digital Wasteland | Portfolio</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="bartech.ico" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <!-- Noise overlay -->
-  <div class="noise" aria-hidden="true"></div>
-  
-  <!-- Navigation -->
-  <header>
-    <nav class="nav-container">
-      <div class="logo">Solution<span>Found.</span></div>
-      <button class="menu-toggle" aria-label="Toggle menu">
-        <span class="hamburger"></span>
-      </button>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <!-- <li><a href="#contact">Contact</a></li> -->
-        <li><a href="https://www.youtube.com/@ProdDarktech" target="_blank" rel="noopener">Music</a></li>
-        <li><a href="https://www.youtube.com/@liminalnectar4521" target="_blank" rel="noopener">Graphic Design</a></li>
-        <li><a href="https://github.com/sebinobr" target="_blank" rel="noopener">GitHub</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <!-- Hero section - Fixed structure -->
-<section class="hero" id="hero">
-  <div class="hero-content">
-    <h1 class="glitch-title" data-text="Sebastian Bartko">Sebastian Bartko</h1>
-    <p class="subtitle">A portfolio.</p>
-    <button class="enter-button">
-      <span>Enter.//</span>
-    </button>
-  </div>
-  
-  <!-- Scroll indicator animation -->
-  <div class="scroll-indicator">
-    <div class="mouse">
-      <div class="wheel"></div>
-    </div>
-    <div class="arrows">
-      <span class="arrow-down"></span>
-      <span class="arrow-down"></span>
-    </div>
-  </div>
-</section>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Noise overlay -->
+    <div class="noise" aria-hidden="true"></div>
 
-<!-- About section - Fixed structure -->
-<section class="about" id="about">
-  <div class="container">
-    <h2 class="section-title">About Me</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p>I am a digital creator exploring the overlaps between software engineering, music production, graphic design. My work explores the darker aesthetics of the digital realm, embracing trap metal sounds, hyperrealistic renders, and experimental interfaces.</p>
-        <p>My trap metal productions draw inspiration from boundary-pushing artists such as Beyoncé and Shakira, reimagining their melodic sensibilities.</p>
-        <p>My product is a fusion of hyperrealism and dreamlike elements, created in rapid production cycles that embrace spontaneity and allow me to stay prolific.</p>
-        <p>When I'm not creating or learning (strongly tied synonyms), you can probably find me in the dojo, in solitude, working on something.</p>
-        <p></p>
+    <!-- Navigation -->
+    <header>
+      <nav class="nav-container">
+        <div class="logo">Solution<span>Found.</span></div>
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span class="hamburger"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <!-- <li><a href="#contact">Contact</a></li> -->
+          <li>
+            <a
+              href="https://www.youtube.com/@ProdDarktech"
+              target="_blank"
+              rel="noopener"
+              >Music</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/@liminalnectar4521"
+              target="_blank"
+              rel="noopener"
+              >Graphic Design</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/sebinobr" target="_blank" rel="noopener"
+              >GitHub</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero section - Fixed structure -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <h1 class="glitch-title" data-text="Sebastian Bartko">
+          Sebastian Bartko
+        </h1>
+        <p class="subtitle">The portfolio.</p>
+        <button class="enter-button">
+          <span>Enter.//</span>
+        </button>
       </div>
-      <div class="about-image">
-        <img src="pictures/discrete.jpg" alt="Discrete.//" loading="lazy">
+
+      <!-- Scroll indicator animation -->
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
+        <div class="arrows">
+          <span class="arrow-down"></span>
+          <span class="arrow-down"></span>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-  
-  <!-- Projects section -->
-  <section class="projects" id="projects">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
-        
-        <article class="project-card vhs-effect">
-          <h3 class="project-title">Github Portfolio</h3>
-          <p class="project-description">An archived selection of my software engineering related projects.</p>
-          <a href="https://github.com/sebinobr" target="_blank" rel="noopener" class="project-link">Github Portfolio <i class="fas fa-external-link-alt"></i></a>
-          <!-- <button type="button" class="media-toggle" data-type="animation" data-target="animation-player">
+    </section>
+
+    <!-- About section - Fixed structure -->
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              I am a digital creator exploring the overlaps between software
+              engineering, music production, graphic design. My work explores
+              the darker aesthetics of the digital realm, embracing trap metal
+              sounds, hyperrealistic renders, and experimental interfaces.
+            </p>
+
+            <p>
+              My trap metal productions draw inspiration from boundary-pushing
+              artists such as Scarlxrd and Ghostemane, reimagining their melodic
+              sensibilities in my own way.
+            </p>
+
+            <p>
+              My products tend to be a fusion of hyperrealism and dreamlike elements,
+              created in rapid production cycles that embrace spontaneity and
+              allow me to stay prolific.
+            </p>
+
+            <p>
+              When I'm not creating or learning (strongly tied synonyms), you
+              can probably find me in the dojo, in solitude, working on
+              something.
+            </p>
+
+
+            <p>
+              My professional journey has so far led me deep into the world of software development,
+              where I've found a particular fascination with DevOps ecosystems, the automation of
+              deployment pipelines and infrastructure as code. The elegant
+              choreography between development and operations resonates with my
+              appreciation for systems that very feasibly provides technical precision and improves efficiency all across the board.
+            </p>
+
+
+            <p>
+              The ephemeral nature of cloud infrastructure fascinates me – how
+              systems can materialize and dissolve on demand. This
+              makes me feel as if my technical work is infused with a sense of urgency, precision and possibility
+              that pushes me to refine my craft continuously.
+            </p>
+          </div>
+          <div class="about-image">
+            <img src="pictures/discrete.jpg" alt="Discrete.//" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects section -->
+    <section class="projects" id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+          <article class="project-card vhs-effect">
+            <h3 class="project-title">Github Portfolio</h3>
+            <p class="project-description">
+              An archived selection of my software engineering related projects.
+            </p>
+            <a
+              href="https://github.com/sebinobr"
+              target="_blank"
+              rel="noopener"
+              class="project-link"
+              >Github Portfolio <i class="fas fa-external-link-alt"></i
+            ></a>
+            <!-- <button type="button" class="media-toggle" data-type="animation" data-target="animation-player">
             <i class="fas fa-play"></i> Preview Animations
           </button>
           <div id="animation-player" class="media-player"></div> -->
-        </article>
+          </article>
 
-        <article class="project-card vhs-effect">
-          <h3 class="project-title">Sounds of Animals fighting</h3>
-          <p class="project-description">Experimental trap metal productions that push sonic boundaries and shift listeners' paradigms. Check out my music channel for the latest tracks.</p>
-          <a href="https://www.youtube.com/@ProdDarktech" target="_blank" rel="noopener" class="project-link">YouTube Music Channel <i class="fas fa-external-link-alt"></i></a>
-          <!-- <button type="button" class="media-toggle" data-type="music" data-target="music-player">
+          <article class="project-card vhs-effect">
+            <h3 class="project-title">Sounds of Animals fighting</h3>
+            <p class="project-description">
+              Experimental trap metal productions that push sonic boundaries and
+              shift listeners' paradigms. Check out my music channel for the
+              latest tracks.
+            </p>
+            <a
+              href="https://www.youtube.com/@ProdDarktech"
+              target="_blank"
+              rel="noopener"
+              class="project-link"
+              >YouTube Music Channel <i class="fas fa-external-link-alt"></i
+            ></a>
+            <!-- <button type="button" class="media-toggle" data-type="music" data-target="music-player">
             <i class="fas fa-play"></i> Preview Music
           </button>
           <div id="music-player" class="media-player"></div> -->
-        </article>
-        
-        <article class="project-card vhs-effect">
-          <h3 class="project-title">Liminal Nectar</h3>
-          <p class="project-description">Hyperrealistic Blender animations created in a single day, exploring the boundaries between reality and digital art.</p>
-          <a href="https://www.youtube.com/@liminalnectar4521" target="_blank" rel="noopener" class="project-link">Visuals Channel <i class="fas fa-external-link-alt"></i></a>
-          <!-- <button type="button" class="media-toggle" data-type="animation" data-target="animation-player">
+          </article>
+
+          <article class="project-card vhs-effect">
+            <h3 class="project-title">Liminal Nectar</h3>
+            <p class="project-description">
+              Hyperrealistic Blender animations created in a single day,
+              exploring the boundaries between reality and digital art.
+            </p>
+            <a
+              href="https://www.youtube.com/@liminalnectar4521"
+              target="_blank"
+              rel="noopener"
+              class="project-link"
+              >Visuals Channel <i class="fas fa-external-link-alt"></i
+            ></a>
+            <!-- <button type="button" class="media-toggle" data-type="animation" data-target="animation-player">
             <i class="fas fa-play"></i> Preview Animations
           </button>
           <div id="animation-player" class="media-player"></div> -->
-        </article>
-        
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Contact section -->
-  <!-- <section class="contact" id="contact">
+    </section>
+
+    <!-- Contact section -->
+    <!-- <section class="contact" id="contact">
     <div class="container">
       <h2 class="section-title">Contact</h2>
       <p>Have a project idea or just want to connect? Reach out through the form below.</p>
@@ -145,29 +236,50 @@
       </form>
     </div>
   </section> -->
-  
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="social-links">
-        <a href="https://www.youtube.com/@ProdDarktech" target="_blank" rel="noopener" class="social-link" aria-label="YouTube Music">
-          <i class="fab fa-youtube"></i>
-          <span>YouTube Music</span>
-        </a>
-        <a href="https://www.youtube.com/@liminalnectar4521" target="_blank" rel="noopener" class="social-link" aria-label="YouTube Animations">
-          <i class="fab fa-youtube"></i>
-          <span>YouTube Animations</span>
-        </a>
-        <a href="https://github.com/sebinobr" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
-          <i class="fab fa-github"></i>
-          <span>GitHub</span>
-        </a>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="social-links">
+          <a
+            href="https://www.youtube.com/@ProdDarktech"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            aria-label="YouTube Music"
+          >
+            <i class="fab fa-youtube"></i>
+            <span>YouTube Music</span>
+          </a>
+          <a
+            href="https://www.youtube.com/@liminalnectar4521"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            aria-label="YouTube Animations"
+          >
+            <i class="fab fa-youtube"></i>
+            <span>YouTube Animations</span>
+          </a>
+          <a
+            href="https://github.com/sebinobr"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            aria-label="GitHub"
+          >
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+        <p class="copyright">
+          &copy; <span id="currentYear"></span> Solution Found. All rights
+          reserved.
+        </p>
       </div>
-      <p class="copyright">&copy; <span id="currentYear"></span> Solution Found. All rights reserved.</p>
-    </div>
-  </footer>
-  
-  <!-- Scripts -->
-  <script src="js/main.js"></script>
-</body>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+  </body>
 </html>

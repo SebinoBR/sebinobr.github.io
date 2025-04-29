@@ -645,7 +645,7 @@ section {
 .about-image {
   position: relative;
   width: 100%;
-  height: 65%;
+  height: 100%;
   border: 1px solid var(--muted-color);
 }
 
@@ -1214,3 +1214,4 @@ footer {
 
   
 }
+
