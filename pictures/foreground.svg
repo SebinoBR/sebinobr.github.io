@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <defs>
+    <!-- Noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.4 0" in="noise" result="coloredNoise"/>
+      <feComposite operator="in" in="coloredNoise" in2="SourceGraphic" result="noisyImage"/>
+    </filter>
+    
+    <!-- Gradient backgrounds -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0d26"/>
+      <stop offset="100%" stop-color="#301356"/>
+    </linearGradient>
+    
+    <radialGradient id="spotlightPurple" cx="35%" cy="30%" r="70%" fx="35%" fy="30%">
+      <stop offset="0%" stop-color="#8a2be2" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1a0d26" stop-opacity="0"/>
+    </radialGradient>
+    
+    <radialGradient id="spotlightPurple2" cx="75%" cy="65%" r="60%" fx="75%" fy="65%">
+      <stop offset="0%" stop-color="#5d3fd3" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#1a0d26" stop-opacity="0"/>
+    </radialGradient>
+    
+    <radialGradient id="spotlightOrange" cx="85%" cy="75%" r="40%" fx="85%" fy="75%">
+      <stop offset="0%" stop-color="#ff4e00" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#1a0d26" stop-opacity="0"/>
+    </radialGradient>
+    
+    <!-- Text glow -->
+    <filter id="mainTextGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feFlood flood-color="#6a11cb" flood-opacity="0.8" result="glowColor"/>
+      <feComposite in="glowColor" in2="blur" operator="in" result="softGlow"/>
+      <feComposite in="SourceGraphic" in2="softGlow" operator="over"/>
+    </filter>
+    
+    <filter id="subtextGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#ff4e00" flood-opacity="0.9" result="glowColor"/>
+      <feComposite in="glowColor" in2="blur" operator="in" result="softGlow"/>
+      <feComposite in="SourceGraphic" in2="softGlow" operator="over"/>
+    </filter>
+    
+    <!-- Liquid flow filter -->
+    <filter id="liquidFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="turbulence" baseFrequency="0.01 0.05" numOctaves="2" seed="1" result="turbulence"/>
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="20" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    
+    <!-- Abstract patterns -->
+    <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+      <circle cx="10" cy="10" r="1" fill="#ffffff" opacity="0.07"/>
+    </pattern>
+  </defs>
+  
+  <!-- Main background rectangle -->
+  <rect width="100%" height="100%" fill="url(#bgGradient)"/>
+  
+  <!-- Spotlights -->
+  <rect width="100%" height="100%" fill="url(#spotlightPurple)"/>
+  <rect width="100%" height="100%" fill="url(#spotlightPurple2)"/>
+  <rect width="100%" height="100%" fill="url(#spotlightOrange)"/>
+  
+  <!-- Abstract shapes -->
+  <g opacity="0.2" filter="url(#liquidFilter)">
+    <!-- Large flowing shapes -->
+    <path d="M0,400 C300,350 500,450 900,300 C1300,150 1600,250 1920,200 L1920,600 C1600,550 1300,650 900,500 C500,350 300,450 0,400 Z" 
+          fill="#7a1ba0" opacity="0.15"/>
+    
+    <path d="M0,700 C400,650 800,750 1200,600 C1600,450 1800,550 1920,500 L1920,900 C1800,850 1600,950 1200,800 C800,650 400,750 0,700 Z" 
+          fill="#5d3fd3" opacity="0.15"/>
+  </g>
+  
+  <!-- Dot pattern overlay -->
+  <rect width="100%" height="100%" fill="url(#dotPattern)"/>
+  
+  <!-- Abstract elements -->
+  <g>
+    <!-- Abstract circles -->
+    <circle cx="200" cy="200" r="100" fill="none" stroke="#8a2be2" stroke-width="1" opacity="0.2"/>
+    <circle cx="200" cy="200" r="150" fill="none" stroke="#8a2be2" stroke-width="1" opacity="0.15"/>
+    <circle cx="200" cy="200" r="200" fill="none" stroke="#8a2be2" stroke-width="1" opacity="0.1"/>
+    
+    <circle cx="1700" cy="850" r="120" fill="none" stroke="#6a11cb" stroke-width="1" opacity="0.2"/>
+    <circle cx="1700" cy="850" r="170" fill="none" stroke="#6a11cb" stroke-width="1" opacity="0.15"/>
+    <circle cx="1700" cy="850" r="220" fill="none" stroke="#6a11cb" stroke-width="1" opacity="0.1"/>
+    
+    <!-- Random lines -->
+    <line x1="0" y1="300" x2="500" y2="350" stroke="#8a2be2" stroke-width="1" opacity="0.2"/>
+    <line x1="1420" y1="200" x2="1920" y2="250" stroke="#8a2be2" stroke-width="1" opacity="0.2"/>
+    <line x1="0" y1="800" x2="500" y2="750" stroke="#8a2be2" stroke-width="1" opacity="0.2"/>
+    <line x1="1420" y1="900" x2="1920" y2="850" stroke="#8a2be2" stroke-width="1" opacity="0.2"/>
+  </g>
+  
+  <!-- Main text: Sebastian Bartko -->
+  <g filter="url(#mainTextGlow)">
+    <!-- Shadow version of text -->
+    <text x="960" y="500" 
+          font-family="'Times New Roman', serif" 
+          font-weight="700" 
+          font-size="140" 
+          text-anchor="middle" 
+          fill="#1a0d26"
+          stroke="#1a0d26"
+          stroke-width="8"
+          letter-spacing="5">
+      SEBASTIAN BARTKO
+    </text>
+    
+    <!-- Main text -->
+    <text x="960" y="500" 
+          font-family="'Times New Roman', serif" 
+          font-weight="700" 
+          font-size="140" 
+          text-anchor="middle" 
+          fill="#ffffff"
+          letter-spacing="5">
+      SEBASTIAN BARTKO
+    </text>
+  </g>
+  
+  <!-- Subtext: SOLUTION_FOUND -->
+  <g filter="url(#subtextGlow)">
+    <text x="960" y="600" 
+          font-family="'Times New Roman', serif" 
+          font-weight="bold" 
+          font-size="48" 
+          text-anchor="middle" 
+          fill="#ffffff"
+          letter-spacing="15">
+      SOLUTION_FOUND
+    </text>
+  </g>
+  
+  <!-- Decorative underline -->
+  <rect x="510" y="650" width="900" height="2" fill="#ff4e00" opacity="0.8"/>
+  
+  <!-- Noise overlay -->
+  <rect width="100%" height="100%" fill="#ffffff" opacity="0.03" filter="url(#noise)"/>
+</svg>
