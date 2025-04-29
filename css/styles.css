@@ -247,6 +247,10 @@ header.scrolled {
   overflow: hidden;
 }
 
+/* Remove the 'fullscreen' class from HTML - already included in main .hero styles */
+/* In your HTML it shows <section class="hero fullscreen" id="hero"> 
+   but should just be <section class="hero" id="hero"> */
+
 .hero::before {
   content: '';
   position: absolute;
@@ -265,6 +269,74 @@ header.scrolled {
   text-align: center;
   z-index: 1;
   padding: 0 2rem;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 5;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+/* Mouse animation */
+.mouse {
+  width: 30px;
+  height: 50px;
+  border: 2px solid var(--text-color);
+  border-radius: 20px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.wheel {
+  width: 6px;
+  height: 6px;
+  background-color: var(--highlight-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll 2s infinite;
+}
+
+/* Down arrows animation */
+.arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow-down {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--text-color);
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: arrow 2s infinite;
+}
+
+.arrow-down:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+/* Make sure About section is correctly distanced from hero */
+#about {
+  scroll-margin-top: 80px; /* Adjust based on header height */
+  padding-top: 100px; /* Ensure there's a good gap after scrolling */
 }
 
 .glitch-title {
@@ -472,13 +544,28 @@ section {
 /* ===== About Section ===== */
 .about {
   background-color: var(--bg-color-alt);
+  position: relative;
+}
+
+/* Fix about section alignment and spacing */
+.about .container {
+  padding-top: 3rem;
+}
+
+.about .section-title {
+  margin-bottom: 4rem;
+  text-align: left;
 }
 
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6rem;
-  align-items: center;
+  align-items: start; /* Change from center to start for better text alignment */
+}
+
+.about-text {
+  margin-bottom: 3rem;
 }
 
 .about-text p {
@@ -486,12 +573,14 @@ section {
   line-height: 1.8;
 }
 
+/* Fix image container and image display */
 .about-image {
   position: relative;
   width: 100%;
-  height: auto;
+  /* Remove fixed height to allow proper scaling */
   overflow: hidden;
   border: 1px solid var(--muted-color);
+  aspect-ratio: 4/3; /* Create a consistent aspect ratio */
 }
 
 .about-image img {
@@ -515,13 +604,30 @@ section {
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom, 
-                rgba(122, 27, 160, 0.3), 
-                rgba(13, 13, 14, 0.7)),
-              linear-gradient(45deg, 
-                rgba(255, 78, 0, 0.2), 
-                transparent 70%);
+              rgba(122, 27, 160, 0.3), 
+              rgba(13, 13, 14, 0.7)),
+            linear-gradient(45deg, 
+              rgba(255, 78, 0, 0.2), 
+              transparent 70%);
   z-index: 1;
   pointer-events: none;
+}
+
+/* Media queries for about section */
+@media (max-width: 992px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .about-image {
+    order: -1; /* Keep image on top for mobile */
+    margin-bottom: 3rem;
+  }
+  
+  .about .section-title {
+    text-align: center; /* Center title on mobile */
+  }
 }
 
 /* ===== Projects Section ===== */

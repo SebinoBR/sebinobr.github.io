@@ -371,6 +371,11 @@ function enhanceVHSEffect() {
 }
 
 
+/**
+ * Make sure this is added to your main.js or create a new script file
+ * If adding to existing main.js, avoid duplicating these functions
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
   // Smooth scrolling for all anchor links
   initSmoothScrolling();
@@ -380,6 +385,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Scroll indicator functionality
   initScrollIndicator();
+  
+  // Keyboard navigation
+  initKeyboardNav();
 });
 
 /**
@@ -401,7 +409,7 @@ function initSmoothScrolling() {
         const headerHeight = document.querySelector('header').offsetHeight;
         
         // Calculate the target position
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
         
         // Scroll to the target
         window.scrollTo({
@@ -423,17 +431,18 @@ function initHeaderScroll() {
   if (!header || !heroSection) return;
   
   window.addEventListener('scroll', function() {
-    // Get hero height
-    const heroHeight = heroSection.offsetHeight;
-    const scrollPosition = window.scrollY;
-    
     // Add/remove scrolled class based on scroll position
-    if (scrollPosition > 50) {
+    if (window.scrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
   });
+  
+  // Initialize with correct state on page load
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  }
 }
 
 /**
@@ -450,7 +459,7 @@ function initScrollIndicator() {
     const headerHeight = document.querySelector('header').offsetHeight;
     
     // Calculate target position
-    const targetPosition = aboutSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+    const targetPosition = aboutSection.getBoundingClientRect().top + window.scrollY - headerHeight;
     
     // Scroll to about section
     window.scrollTo({
@@ -463,27 +472,29 @@ function initScrollIndicator() {
 /**
  * Initialize keyboard navigation (press down arrow or Enter to scroll to About section)
  */
-document.addEventListener('keydown', function(event) {
-  // Check if currently at top of page
-  if (window.scrollY < 100) {
-    // Down arrow key or Enter key
-    if (event.key === 'ArrowDown' || event.key === 'Enter') {
-      const aboutSection = document.getElementById('about');
-      if (aboutSection) {
-        event.preventDefault();
-        
-        // Get header height
-        const headerHeight = document.querySelector('header').offsetHeight;
-        
-        // Calculate target position
-        const targetPosition = aboutSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-        
-        // Scroll to about section
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
+function initKeyboardNav() {
+  document.addEventListener('keydown', function(event) {
+    // Check if currently at top of page
+    if (window.scrollY < 100) {
+      // Down arrow key or Enter key
+      if (event.key === 'ArrowDown' || event.key === 'Enter') {
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+          event.preventDefault();
+          
+          // Get header height
+          const headerHeight = document.querySelector('header').offsetHeight;
+          
+          // Calculate target position
+          const targetPosition = aboutSection.getBoundingClientRect().top + window.scrollY - headerHeight;
+          
+          // Scroll to about section
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
       }
     }
-  }
-});
+  });
+}
