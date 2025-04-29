@@ -225,7 +225,7 @@ header {
 
 /* ===== Hero Section ===== */
 .hero {
-  background-image: url('pictures/foreground.svg');
+  background-image: url('pictures/discrete.jpg');
   background-size: cover;
   background-position: center;
 }
