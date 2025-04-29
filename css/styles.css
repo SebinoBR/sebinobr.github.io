@@ -30,8 +30,8 @@
   --heading-font: 'Poppins', Arial, sans-serif;
 
   /* Effects */
-  --glitch-shadow-primary: #ff00ea;
-  --glitch-shadow-secondary: #00c3ff;
+  --glitch-shadow-primary: var(--highlight-color); /* Purple */
+  --glitch-shadow-secondary: var(--secondary-highlight); /* Orange */
   --transition-slow: 0.7s ease;
   --transition-medium: 0.3s ease;
   --transition-fast: 0.2s ease;
@@ -259,10 +259,16 @@ header {
     padding: 2rem 0;
     z-index: 999; /* Ensure it's above other content */
     gap: 1.5rem;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Add transition for smoother open/close */
+    transform-origin: top; /* For smoother scaling/sliding */
+    opacity: 0; /* Initially hidden with opacity */
+    transform: scaleY(0); /* Initially scaled down vertically */
   }
 
   .nav-links.open {
     display: flex; /* Show mobile navigation when the 'open' class is added (via JS) */
+    opacity: 1;
+    transform: scaleY(1);
   }
 
   .nav-links li {
@@ -402,7 +408,6 @@ header {
   position: relative;
   text-transform: uppercase;
   letter-spacing: 3px;
-  animation: glitch-skew 4s infinite linear alternate-reverse;
 }
 
 .glitch-title::before,
@@ -413,26 +418,35 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
+  /* Ensure they are behind the main text */
   z-index: -1;
 }
 
 .glitch-title::before {
-  color: var(--glitch-shadow-primary);
-  animation: glitch-effect 5s infinite;
+  color: var(--glitch-shadow-primary); /* Purple */
+  /* Apply a slight offset and the glitch animation */
+  left: 2px;
+  text-shadow: -1px 0 var(--bg-color); /* To create a sharp edge */
+  animation: glitch-color-1 1.5s infinite alternate;
 }
 
 .glitch-title::after {
-  color: var(--glitch-shadow-secondary);
-  animation: glitch-effect 7.5s infinite;
+  color: var(--glitch-shadow-secondary); /* Orange */
+  /* Apply a different slight offset and the glitch animation */
+  left: -2px;
+  text-shadow: 1px 0 var(--bg-color); /* To create a sharp edge */
+  animation: glitch-color-2 1s infinite alternate;
 }
 
-.subtitle {
-  font-size: 1.8rem;
-  margin-bottom: 4rem;
-  opacity: 0.8;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+/* Keyframes for the color glitch effect */
+@keyframes glitch-color-1 {
+  0% { transform: translateX(-1px); opacity: 1; }
+  100% { transform: translateX(1px); opacity: 0.8; }
+}
+
+@keyframes glitch-color-2 {
+  0% { transform: translateX(1px); opacity: 0.8; }
+  100% { transform: translateX(-1px); opacity: 1; }
 }
 
 /* Enter Button */
