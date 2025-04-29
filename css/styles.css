@@ -374,7 +374,7 @@ section {
 .about-image {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: auto;
   overflow: hidden;
   border: 1px solid var(--muted-color);
 }
