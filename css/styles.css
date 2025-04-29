@@ -23,6 +23,12 @@
   --font-main: 'Courier New', monospace;
   --font-headers: 'Arial', sans-serif;
   
+  /* NEW Font Properties */
+  --text-shadow: 0 0 3px rgba(122, 27, 160, 0.3);
+  --heading-color: #ffffff;
+  --body-font: 'Inter', 'Segoe UI', 'Courier New', monospace;
+  --heading-font: 'Poppins', Arial, sans-serif;
+  
   /* Effects */
   --glitch-shadow-primary: #ff00ea;
   --glitch-shadow-secondary: #00c3ff;
@@ -51,11 +57,12 @@ html {
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: var(--font-main);
-  font-size: 1.6rem;
+  font-family: var(--body-font);
+  font-size: a1.6rem;
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
+  letter-spacing: 0.015em;
 }
 
 img {
@@ -94,6 +101,12 @@ a:hover {
   border: 0;
 }
 
+/* ADDED: For important text sections */
+.highlight-text {
+  color: var(--secondary-highlight);
+  font-weight: 600;
+}
+
 /* ===== Noise Overlay ===== */
 .noise {
   position: fixed;
@@ -109,10 +122,13 @@ a:hover {
 
 /* ===== Typography ===== */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-headers);
+  font-family: var(--heading-font);
   line-height: 1.2;
   margin-bottom: 2rem;
   font-weight: 700;
+  color: var(--heading-color);
+  letter-spacing: 0.02em;
+  text-shadow: var(--text-shadow);
 }
 
 h1 {
@@ -129,6 +145,11 @@ h3 {
 
 p {
   margin-bottom: 2rem;
+}
+
+/* ADDED: Make strong text stand out */
+strong, em, b {
+  color: #ffffff;
 }
 
 /* ===== Navigation ===== */
@@ -247,9 +268,6 @@ header.scrolled {
   overflow: hidden;
 }
 
-/* Remove the 'fullscreen' class from HTML - already included in main .hero styles */
-/* In your HTML it shows <section class="hero fullscreen" id="hero"> 
-   but should just be <section class="hero" id="hero"> */
 
 .hero::before {
   content: '';
@@ -419,6 +437,53 @@ header.scrolled {
   left: 100%;
 }
 
+/* ADDED: Improved enter button styling */
+.enter-button {
+  background: linear-gradient(135deg, var(--highlight-color), var(--accent-color));
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(122, 27, 160, 0.3);
+}
+
+/* Button hover effect */
+.enter-button:hover {
+  box-shadow: 0 7px 20px rgba(122, 27, 160, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Create the animation effect without hiding text */
+.enter-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.4s ease;
+}
+
+.enter-button:hover::before {
+  left: 100%;
+}
+
+/* Make sure text remains visible */
+.enter-button span {
+  position: relative;
+  z-index: 2;
+  color: white; /* Force text color to always be white */
+}
+
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute;
@@ -430,7 +495,7 @@ header.scrolled {
   align-items: center;
   cursor: pointer;
   z-index: 5;
-  opacity: 0.7;
+  opacity: 0.3;
   transition: opacity 0.3s;
 }
 
@@ -545,6 +610,7 @@ section {
 .about {
   background-color: var(--bg-color-alt);
   position: relative;
+  padding-bottom: 60px; /* Reduced bottom padding */
 }
 
 /* Fix about section alignment and spacing */
@@ -562,25 +628,25 @@ section {
   grid-template-columns: 1fr 1fr;
   gap: 6rem;
   align-items: start; /* Change from center to start for better text alignment */
+  min-height: 300px;
 }
 
 .about-text {
   margin-bottom: 3rem;
+  font-size: 1.5rem;
 }
 
 .about-text p {
   margin-bottom: 2rem;
-  line-height: 1.8;
+  line-height: 2.2;
 }
 
 /* Fix image container and image display */
 .about-image {
   position: relative;
   width: 100%;
-  /* Remove fixed height to allow proper scaling */
-  overflow: hidden;
+  height: 65%;
   border: 1px solid var(--muted-color);
-  aspect-ratio: 4/3; /* Create a consistent aspect ratio */
 }
 
 .about-image img {
@@ -592,7 +658,7 @@ section {
 }
 
 .about-image:hover img {
-  transform: scale(1.05);
+  transform: scale(0.99);
   filter: grayscale(0%) contrast(100%);
 }
 
@@ -618,6 +684,7 @@ section {
   .about-content {
     grid-template-columns: 1fr;
     gap: 4rem;
+    margin-bottom: 0;
   }
   
   .about-image {
@@ -635,7 +702,11 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 3rem;
-  margin-top: 5rem;
+  margin-top: 0;
+  min-height:200px;
+}
+.projects {
+  padding-top: 60px; /* Reduced top padding */
 }
 
 .project-card {
@@ -800,7 +871,7 @@ section {
 }
 
 /* ===== Contact Section ===== */
-.contact {
+/* .contact {
   background-color: var(--bg-color-alt);
 }
 
@@ -870,7 +941,7 @@ textarea.form-control {
 
 .submit-btn:hover i {
   transform: translateX(5px);
-}
+} */
 
 /* ===== Footer ===== */
 footer {
@@ -878,6 +949,7 @@ footer {
   background-color: rgba(10, 10, 10, 0.8);
   text-align: center;
   border-top: 1px solid var(--muted-color);
+  position: relative;
 }
 
 .social-links {
@@ -1121,6 +1193,8 @@ footer {
   
   .section-title {
     font-size: 3rem;
+    margin-top: 0;
+    margin-bottom: 40px; /* Adjust as needed */
   }
   
   .projects-grid {
@@ -1136,4 +1210,7 @@ footer {
     gap: 1.5rem;
     align-items: center;
   }
+
+
+  
 }

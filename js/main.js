@@ -7,14 +7,79 @@
 
 // Wait for DOM content to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all components
-  initNavigation();
-  initGlitchEffect();
-  initScrollAnimation();
-  initMediaToggles();
-  initContactForm();
+  // Initialize critical components first
   setCurrentYear();
+  initEnterButton();
+  initNavigation();
+
+  // Fix for image loading - preload the image to prevent layout shifts
+  preloadImages();
+  
+  // Initialize components that won't cause layout shifts
+  initSmoothScrolling();
+  initHeaderScroll();
+  initScrollIndicator();
+  initKeyboardNav();
+  
+  // Allow a small delay before initializing animation-related functions
+  setTimeout(() => {
+    initGlitchEffect();
+    initScrollAnimation();
+    initMediaToggles();
+    enhanceVHSEffect();
+  }, 100);
 });
+
+/**
+ * Preload critical images to prevent layout shifts
+ */
+function preloadImages() {
+  const aboutImage = document.querySelector('.about-image img');
+  if (aboutImage) {
+    // Create a new image to preload
+    const img = new Image();
+    // Set up load event
+    img.onload = function() {
+      // When image is loaded, ensure about content has correct height
+      const aboutContent = document.querySelector('.about-content');
+      if (aboutContent) {
+        // Lock in the height after image is loaded
+        aboutContent.style.minHeight = aboutContent.offsetHeight + 'px';
+      }
+    };
+    // Start loading image
+    img.src = aboutImage.src;
+  }
+}
+
+/**
+ * Initialize enter button functionality
+ */
+function initEnterButton() {
+  // Find the enter button
+  const enterButton = document.querySelector('.enter-button');
+  
+  if (enterButton) {
+    enterButton.addEventListener('click', function() {
+      // Get the about section
+      const aboutSection = document.getElementById('about');
+      
+      if (aboutSection) {
+        // Get the header height
+        const headerHeight = document.querySelector('header').offsetHeight || 0;
+        
+        // Calculate the target position
+        const targetPosition = aboutSection.getBoundingClientRect().top + window.scrollY - headerHeight;
+        
+        // Scroll to the target
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+}
 
 /**
  * Navigation functionality
@@ -53,6 +118,11 @@ function initNavigation() {
       header.classList.remove('scrolled');
     }
   });
+  
+  // Apply initial scroll state immediately
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  }
   
   // Smooth scrolling for all anchor links
   const scrollLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
@@ -114,6 +184,7 @@ function initGlitchEffect() {
 /**
  * Scroll animations
  * - Fade in elements as they enter viewport
+ * - Modified to prevent layout shifts
  */
 function initScrollAnimation() {
   // Helper function to check if element is in viewport
@@ -125,11 +196,12 @@ function initScrollAnimation() {
     );
   }
   
-  // Elements to animate
-  const animateElements = document.querySelectorAll('.section-title, .about-content, .project-card, .contact-form');
+  // Elements to animate - skip contact form which is commented out
+  const animateElements = document.querySelectorAll('.section-title, .about-content, .project-card');
   
-  // Add initial classes
+  // Add initial classes without changing layout properties
   animateElements.forEach(element => {
+    // Use opacity only for animations to prevent layout shifts
     element.classList.add('animate-on-scroll');
     
     // Check initial state
@@ -161,6 +233,8 @@ function initMediaToggles() {
       const targetId = this.dataset.target;
       const contentType = this.dataset.type;
       const container = document.getElementById(targetId);
+      
+      if (!container) return; // Skip if container doesn't exist
       
       if (container.classList.contains('active')) {
         // Close currently playing
@@ -215,107 +289,108 @@ function initMediaToggles() {
  * Contact form handling
  * - Form validation
  * - Submission handling
+ * - Modified to avoid errors with removed contact section
  */
-function initContactForm() {
-  const contactForm = document.getElementById('contactForm');
+// function initContactForm() {
+//   const contactForm = document.getElementById('contactForm');
   
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
+//   if (!contactForm) return; // Exit early if contact form is removed/commented out
+  
+//   contactForm.addEventListener('submit', function(e) {
+//     e.preventDefault();
+    
+//     // Basic form validation
+//     const nameInput = document.getElementById('name');
+//     const emailInput = document.getElementById('email');
+//     const messageInput = document.getElementById('message');
+    
+//     let isValid = true;
+    
+//     // Simple validation - check if fields are empty
+//     if (!nameInput.value.trim()) {
+//       highlightError(nameInput);
+//       isValid = false;
+//     } else {
+//       removeError(nameInput);
+//     }
+    
+//     if (!emailInput.value.trim() || !isValidEmail(emailInput.value)) {
+//       highlightError(emailInput);
+//       isValid = false;
+//     } else {
+//       removeError(emailInput);
+//     }
+    
+//     if (!messageInput.value.trim()) {
+//       highlightError(messageInput);
+//       isValid = false;
+//     } else {
+//       removeError(messageInput);
+//     }
+    
+//     // If form is valid, simulate sending (would connect to backend in production)
+//     if (isValid) {
+//       // Show sending state
+//       const submitBtn = contactForm.querySelector('.submit-btn');
+//       const originalText = submitBtn.innerHTML;
+//       submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
+//       submitBtn.disabled = true;
       
-      // Basic form validation
-      const nameInput = document.getElementById('name');
-      const emailInput = document.getElementById('email');
-      const messageInput = document.getElementById('message');
-      
-      let isValid = true;
-      
-      // Simple validation - check if fields are empty
-      if (!nameInput.value.trim()) {
-        highlightError(nameInput);
-        isValid = false;
-      } else {
-        removeError(nameInput);
-      }
-      
-      if (!emailInput.value.trim() || !isValidEmail(emailInput.value)) {
-        highlightError(emailInput);
-        isValid = false;
-      } else {
-        removeError(emailInput);
-      }
-      
-      if (!messageInput.value.trim()) {
-        highlightError(messageInput);
-        isValid = false;
-      } else {
-        removeError(messageInput);
-      }
-      
-      // If form is valid, simulate sending (would connect to backend in production)
-      if (isValid) {
-        // Show sending state
-        const submitBtn = contactForm.querySelector('.submit-btn');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
-        submitBtn.disabled = true;
+//       // Simulate API call with timeout
+//       setTimeout(() => {
+//         // Reset form
+//         contactForm.reset();
         
-        // Simulate API call with timeout
-        setTimeout(() => {
-          // Reset form
-          contactForm.reset();
+//         // Show success message
+//         const formGroups = contactForm.querySelectorAll('.form-group');
+//         formGroups.forEach(group => group.style.display = 'none');
+        
+//         submitBtn.style.display = 'none';
+        
+//         // Create and show success message
+//         const successMessage = document.createElement('div');
+//         successMessage.className = 'success-message';
+//         successMessage.innerHTML = `
+//           <i class="fas fa-check-circle"></i>
+//           <h3>Message Sent!</h3>
+//           <p>Thank you for reaching out. I'll get back to you soon.</p>
+//           <button type="button" class="cta-button reset-form">Send Another Message</button>
+//         `;
+        
+//         contactForm.appendChild(successMessage);
+        
+//         // Add event listener to reset button
+//         const resetBtn = successMessage.querySelector('.reset-form');
+//         resetBtn.addEventListener('click', () => {
+//           // Remove success message
+//           successMessage.remove();
           
-          // Show success message
-          const formGroups = contactForm.querySelectorAll('.form-group');
-          formGroups.forEach(group => group.style.display = 'none');
-          
-          submitBtn.style.display = 'none';
-          
-          // Create and show success message
-          const successMessage = document.createElement('div');
-          successMessage.className = 'success-message';
-          successMessage.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            <h3>Message Sent!</h3>
-            <p>Thank you for reaching out. I'll get back to you soon.</p>
-            <button type="button" class="cta-button reset-form">Send Another Message</button>
-          `;
-          
-          contactForm.appendChild(successMessage);
-          
-          // Add event listener to reset button
-          const resetBtn = successMessage.querySelector('.reset-form');
-          resetBtn.addEventListener('click', () => {
-            // Remove success message
-            successMessage.remove();
-            
-            // Show form again
-            formGroups.forEach(group => group.style.display = 'block');
-            submitBtn.style.display = 'inline-flex';
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-          });
-        }, 2000);
-      }
-    });
-  }
+//           // Show form again
+//           formGroups.forEach(group => group.style.display = 'block');
+//           submitBtn.style.display = 'inline-flex';
+//           submitBtn.innerHTML = originalText;
+//           submitBtn.disabled = false;
+//         });
+//       }, 2000);
+//     }
+//   });
   
-  // Helper functions for form validation
-  function highlightError(input) {
-    input.classList.add('error');
-    input.parentElement.classList.add('has-error');
-  }
+//   // Helper functions for form validation
+//   function highlightError(input) {
+//     input.classList.add('error');
+//     input.parentElement.classList.add('has-error');
+//   }
   
-  function removeError(input) {
-    input.classList.remove('error');
-    input.parentElement.classList.remove('has-error');
-  }
+//   function removeError(input) {
+//     input.classList.remove('error');
+//     input.parentElement.classList.remove('has-error');
+//   }
   
-  function isValidEmail(email) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  }
-}
+//   function isValidEmail(email) {
+//     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     return emailPattern.test(email);
+//   }
+// }
 
 /**
  * Set the current year in the footer copyright
@@ -326,69 +401,6 @@ function setCurrentYear() {
     yearElement.textContent = new Date().getFullYear();
   }
 }
-
-/**
- * Parallax effect on scroll
- * Not activated by default - uncomment to enable
- */
-/* 
-function initParallax() {
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    
-    // Apply parallax to hero section
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      heroContent.style.transform = `translateY(${scrollY * 0.3}px)`;
-    }
-    
-    // Apply to other elements as needed
-  });
-}
-*/
-
-/**
- * VHS tape effect - adds random glitches and tracking issues
- * Simulates damaged VHS tape playback
- */
-function enhanceVHSEffect() {
-  const vhsElements = document.querySelectorAll('.vhs-effect');
-  
-  vhsElements.forEach(element => {
-    // Randomly add glitch effects
-    setInterval(() => {
-      // Only apply effect occasionally (10% chance)
-      if (Math.random() > 0.9) {
-        element.classList.add('tracking-error');
-        
-        // Remove after short duration
-        setTimeout(() => {
-          element.classList.remove('tracking-error');
-        }, 200 + Math.random() * 400);
-      }
-    }, 3000);
-  });
-}
-
-
-/**
- * Make sure this is added to your main.js or create a new script file
- * If adding to existing main.js, avoid duplicating these functions
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Smooth scrolling for all anchor links
-  initSmoothScrolling();
-  
-  // Header transition on scroll
-  initHeaderScroll();
-  
-  // Scroll indicator functionality
-  initScrollIndicator();
-  
-  // Keyboard navigation
-  initKeyboardNav();
-});
 
 /**
  * Initialize smooth scrolling for anchor links
@@ -496,5 +508,28 @@ function initKeyboardNav() {
         }
       }
     }
+  });
+}
+
+/**
+ * VHS tape effect - adds random glitches and tracking issues
+ * Simulates damaged VHS tape playback
+ */
+function enhanceVHSEffect() {
+  const vhsElements = document.querySelectorAll('.vhs-effect');
+  
+  vhsElements.forEach(element => {
+    // Randomly add glitch effects
+    setInterval(() => {
+      // Only apply effect occasionally (10% chance)
+      if (Math.random() > 0.9) {
+        element.classList.add('tracking-error');
+        
+        // Remove after short duration
+        setTimeout(() => {
+          element.classList.remove('tracking-error');
+        }, 200 + Math.random() * 400);
+      }
+    }, 3000);
   });
 }
