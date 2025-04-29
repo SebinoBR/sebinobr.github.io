@@ -158,7 +158,7 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  transition: background-color var(--transition-slow), box-shadow var(--transition-slow);
+  transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
 }
 
 .nav-container {
@@ -212,7 +212,7 @@ header {
 }
 
 .menu-toggle {
-  display: none;
+  display: none; /* Initially hidden on desktop */
   background: transparent;
   border: none;
   cursor: pointer;
@@ -241,6 +241,59 @@ header {
 
 .hamburger::after {
   bottom: -8px;
+}
+
+/* ===== Mobile Navigation ===== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide desktop navigation on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: var(--header-height); /* Position below the header */
+    left: 0;
+    width: 100%;
+    background-color: rgba(13, 13, 14, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+    padding: 2rem 0;
+    z-index: 999; /* Ensure it's above other content */
+    gap: 1.5rem;
+  }
+
+  .nav-links.open {
+    display: flex; /* Show mobile navigation when the 'open' class is added (via JS) */
+  }
+
+  .nav-links li {
+    margin: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    display: block; /* Make links take full width */
+  }
+
+  .nav-links a::after {
+    display: none; /* Remove underline on mobile */
+  }
+
+  .menu-toggle {
+    display: block; /* Show menu toggle on mobile */
+  }
+
+  .menu-toggle.open .hamburger {
+    background: transparent; /* Hide the main bar */
+  }
+
+  .menu-toggle.open .hamburger::before {
+    transform: translateY(8px) rotate(45deg); /* X icon */
+  }
+
+  .menu-toggle.open .hamburger::after {
+    transform: translateY(-8px) rotate(-45deg); /* X icon */
+  }
 }
 
 /* ===== Hero Section ===== */
